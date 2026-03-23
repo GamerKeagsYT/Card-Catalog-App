@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Card Catalog</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-title">Card Catalog</div>
+          <div class="brand-subtitle">Local Archivist Tool</div>
+        </div>
+        <div class="drawer-header">
+          <span>Drawers</span>
+          <button class="icon-button" id="newDrawerButton" title="New Drawer">
+            +
+          </button>
+        </div>
+        <nav class="drawer-list" id="drawerList"></nav>
+      </aside>
+
+      <main class="content">
+        <header class="toolbar">
+          <div class="toolbar-left">
+            <h1 id="drawerTitle">Select a Drawer</h1>
+            <p id="drawerSubtitle">Create or select a drawer to begin cataloging.</p>
+          </div>
+          <div class="toolbar-right">
+            <div class="search-wrapper">
+              <input type="search" id="searchInput" placeholder="Search title, author, subject, call number" />
+              <span class="hint">⌘/Ctrl+F</span>
+            </div>
+            <select id="sortSelect">
+              <option value="title">Sort: Title</option>
+              <option value="author">Sort: Author</option>
+              <option value="callNumber">Sort: Call Number</option>
+              <option value="year">Sort: Year</option>
+            </select>
+            <button class="pill" id="toggleView">Grid View</button>
+            <button class="primary" id="newCardButton">＋ New Card</button>
+          </div>
+        </header>
+
+        <section class="card-area">
+          <div id="emptyState" class="empty-state">
+            <h2>Start a new catalog</h2>
+            <p>Create drawers for your collections, then add cards for each item.</p>
+          </div>
+          <div id="cardContainer" class="card-grid" aria-live="polite"></div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal" id="cardModal" aria-hidden="true">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modalTitle">New Card</h2>
+          <button class="icon-button" id="closeModal">×</button>
+        </div>
+        <form id="cardForm">
+          <label>
+            Title
+            <input type="text" name="title" required />
+          </label>
+          <label>
+            Author / Creator
+            <input type="text" name="author" />
+          </label>
+          <label>
+            Call Number
+            <input type="text" name="callNumber" />
+          </label>
+          <label>
+            Subject(s)
+            <input type="text" name="subjects" placeholder="Separate with commas" />
+          </label>
+          <label>
+            Year
+            <input type="text" name="year" />
+          </label>
+          <label>
+            Notes
+            <textarea name="notes" rows="3"></textarea>
+          </label>
+          <label>
+            Drawer
+            <select name="drawer" id="drawerSelect"></select>
+          </label>
+          <label>
+            Linked File (optional)
+            <input type="file" name="file" />
+          </label>
+          <div class="modal-actions">
+            <button type="button" class="secondary" id="cancelModal">Cancel</button>
+            <button type="submit" class="primary">Save Card</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal" id="drawerModal" aria-hidden="true">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>New Drawer</h2>
+          <button class="icon-button" id="closeDrawerModal">×</button>
+        </div>
+        <form id="drawerForm">
+          <label>
+            Drawer Name
+            <input type="text" name="drawerName" placeholder="ML — Music Literature" required />
+          </label>
+          <div class="modal-actions">
+            <button type="button" class="secondary" id="cancelDrawerModal">Cancel</button>
+            <button type="submit" class="primary">Create Drawer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <footer class="status-bar">
+      <div>
+        <span class="shortcut">⌘/Ctrl+N</span> New Card
+      </div>
+      <div>
+        <span class="shortcut">⌘/Ctrl+K</span> Toggle View
+      </div>
+      <div>
+        <span class="shortcut">⌘/Ctrl+Z</span> Undo &nbsp; <span class="shortcut">⌘/Ctrl+Shift+Z</span> Redo
+      </div>
+    </footer>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>
